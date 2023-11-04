@@ -32,7 +32,7 @@ POPULATION = 25
 
 ##################################################
 # Pyglet
-window = pyglet.window.Window(WIDTH, HEIGHT, "EA Method 1", resizable=False)
+window = pyglet.window.Window(WIDTH, HEIGHT, "EA Method 2", resizable=False)
 options = DrawOptions()
 
 
@@ -44,7 +44,7 @@ environment = create_level_1(space, HEIGHT, WIDTH, THICKNESS, STROKE)
 
 ##################################################
 # AI
-ai_handle = GA1()
+ai_handle = GA2()
 
 
 

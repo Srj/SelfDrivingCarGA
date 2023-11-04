@@ -42,9 +42,9 @@ class Car:
         self.init_position = x, y
         self.init_angle = 0
         self.car_size = 10
-        self.car_dimension = 40, 20
+        self.car_dimension = (40, 20)
         # self.car_color = (0, 255, 0) # QC # 2021-05-23T1434 AU
-        self.car_color = (100, 16, 0, 0) # QC # 2021-05-23T1434 AU
+        self.car_color = (0, 255, 0, 255) # QC # 2021-05-23T1434 AU
         self.car_elasticity = 0
 
         # Car sensors
@@ -78,10 +78,10 @@ class Car:
         self.driver = None
 
     def create(self):
-        inertia = pymunk.moment_for_box(self.car_size, self.car_dimension)
+        inertia = pymunk.moment_for_box(self.car_size, size = self.car_dimension)
         self.car_body = pymunk.Body(self.car_size, inertia, body_type=pymunk.Body.KINEMATIC)
         self.car_body.position = self.init_position
-        self.car_shape = pymunk.Poly.create_box(self.car_body,self.car_dimension)
+        self.car_shape = pymunk.Poly.create_box(self.car_body,size=self.car_dimension)
         self.car_shape.collision_type = self.body_collision_type
         self.car_shape.color = self.car_color
         self.car_shape.elasticity = self.car_elasticity
@@ -120,10 +120,10 @@ class Car:
         sensor_end = distance * sensor_direction
         if self.sensor_visible is True:
             sensor_shape = pymunk.Segment(
-                sensor_body, sensor_start, sensor_end, 1)
+                sensor_body,sensor_start,sensor_end,1)
             sensor_shape.collision_type = collision_type
             # sensor_shape.color = (255, 255, 0) # QC # 2021-05-23T1434 AU
-            sensor_shape.color = (255, 255, 0, 125) # QC # 2021-05-23T1434 AU
+            sensor_shape.color = (255, 255, 0, 255) # QC # 2021-05-23T1434 AU
             self.space.add(sensor_body, sensor_shape)
             self.sensors.append([sensor_body, sensor_shape])
         else:
@@ -149,7 +149,7 @@ class Car:
         self.nose_shape = pymunk.Circle(self.nose_body, 5)
         self.nose_shape.collision_type = self.body_collision_type
         # self.nose_shape.color = (0, 0, 255) # QC # 2021-05-23T1434 AU
-        self.nose_shape.color = (0, 0, 255, 40) # QC # 2021-05-23T1434 AU
+        self.nose_shape.color = (0, 0, 255, 255) # QC # 2021-05-23T1434 AU
         self.space.add(self.nose_shape, self.nose_body)
 
     def nose_update(self):
