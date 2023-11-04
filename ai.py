@@ -159,20 +159,20 @@ def crossover(model1, model2):
         name1, param1 = param1
         name2, param2 = param2
         shape = param1.shape
-        param1 = torch.flatten(param1)
-        param2 = torch.flatten(param2)
+        # param1 = torch.flatten(param1)
+        # param2 = torch.flatten(param2)
         
-        for i in range(len(param1)):
-            if random.uniform(0,1) < 0.5 :
-                temp = param1[i]
-                param1[i] = param2[i]
-                param2[i] = temp
+        if random.uniform(0,1) < 0.5 :
+            # temp = param1[i]
+            # param1[i] = param2[i]
+            # param2[i] = temp
+            param1, param2 = param2, param1
                 
-        param1 = torch.reshape(param1,shape)
-        param2 = torch.reshape(param2,shape)  
+        # param1 = torch.reshape(param1,shape)
+        # param2 = torch.reshape(param2,shape)  
 
-        model1_params[name1] = param1
-        model2_params[name2] = param2  
+    model1_params[name1] = param1
+    model2_params[name2] = param2  
 
     model1.load_state_dict(model1_params)
     model2.load_state_dict(model2_params)
