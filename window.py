@@ -1,7 +1,3 @@
-# title: window.py
-# v: 2021-05-23 AU
-
-
 import pyglet
 import pymunk
 from pymunk.pyglet_util import DrawOptions
@@ -10,7 +6,7 @@ from pymunk.pyglet_util import DrawOptions
 from environment import create_level_1
 from utils import car_model_management, car_reset
 from car import Car
-from ai import GA1, GA2
+import GA1
 
 
 ##################################################
@@ -44,7 +40,7 @@ environment = create_level_1(space, HEIGHT, WIDTH, THICKNESS, STROKE)
 
 ##################################################
 # AI
-ai_handle = GA1()
+ai_handle = GA1.GA1()
 
 
 
@@ -145,8 +141,6 @@ def update(dt):
                 collided.append(i)
 
     if time_counter >= FPS * time_step or len(collided) == POPULATION:
-#        if epoch % 5 == 0:
-#            time_step += 5 # give more time for each new epoch
         # update: give less time for each tenth epoch
         if epoch % 10 == 0: # every 10th epoch # 2021-05-23T1500 AU
             time_step -= 1 # give less time # QC # 2021-05-23T1500 AU

@@ -1,24 +1,12 @@
-# v: 2021-05-23T1343 AU
-# Issue: "ai.py:51: UserWarning: nn.init.kaiming_normal is now deprecated in favor of nn.init.kaiming_normal_."
-# Resolution: renamed `kaiming_normal` to `kaiming_normal_`
-
-
-import torch.nn as nn
-import torch
-import random
-import numpy as np
-import copy
-import os
-import ai.py
-
+from GA2 import *
 
 class GA1:
     def __init__(self,
-                 pop_mu = 5, pop_lambda = 20):
+                 pop_mu=5, pop_lambda=20):
         self.pop_mu = pop_mu
         self.pop_lambda = pop_lambda
 
-        #Defining mu + lambda population
+        # Defining mu + lambda population
         self.population = self.pop_mu + self.pop_lambda
         self.models = [CompressedModel() for _ in range(self.population)]
 
@@ -41,7 +29,7 @@ class GA1:
         scored_models = scored_models[:self.pop_mu]
         self.models = [x[0] for x in scored_models]
 
-        #Save the best one
+        # Save the best one
         if best_model_path is not None:
             unc_model = uncompress_model(self.models[0])
             if os.path.isdir(best_model_path[0]) is False:
@@ -55,12 +43,7 @@ class GA1:
                 print(random.choice(scored_models))
                 self.models.append(copy.deepcopy(random.choice(scored_models)[0]))
                 self.models[-1].mutate(sigma)
-        
+
         print(len(self.models))
 
         return median_score, mean_score, max_score
-
-
-if __name__ == '__main__':
-    net = Network()
-    print(net)

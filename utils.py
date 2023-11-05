@@ -1,7 +1,7 @@
 import math
 from pyglet.window import mouse
 import pymunk
-from ai import uncompress_model
+from GA2 import uncompress_model
 
 
 def get_rotated_point(x_1, y_1, x_2, y_2, radians, WIDTH, HEIGHT):

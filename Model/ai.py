@@ -1,5 +1,5 @@
 # v: 2021-05-23T1343 AU
-# Issue: "ai.py:51: UserWarning: nn.init.kaiming_normal is now deprecated in favor of nn.init.kaiming_normal_."
+# Issue: "GA2.py:51: UserWarning: nn.init.kaiming_normal is now deprecated in favor of nn.init.kaiming_normal_."
 # Resolution: renamed `kaiming_normal` to `kaiming_normal_`
 
 

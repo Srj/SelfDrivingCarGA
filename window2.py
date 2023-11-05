@@ -6,11 +6,11 @@ import pyglet
 import pymunk
 from pymunk.pyglet_util import DrawOptions
 
-
+from GA2 import GA2
 from environment import create_level_1
 from utils import car_model_management, car_reset
 from car import Car
-from ai import GA1, GA2
+import GA1
 
 
 ##################################################

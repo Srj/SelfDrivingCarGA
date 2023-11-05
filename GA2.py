@@ -1,34 +1,9 @@
-# v: 2021-05-23T1343 AU
-# Issue: "ai.py:51: UserWarning: nn.init.kaiming_normal is now deprecated in favor of nn.init.kaiming_normal_."
-# Resolution: renamed `kaiming_normal` to `kaiming_normal_`
-
-
 import torch.nn as nn
 import torch
 import random
 import numpy as np
 import copy
 import os
-
-
-class Network(nn.Module):
-    def __init__(self):
-        super().__init__()
-
-        # Inputs to hidden layer linear transformation
-        self.hidden = nn.Linear(5, 20)
-        # Output layer, 10 units - one for each digit
-        self.output = nn.Linear(20, 2)
-
-        # Define sigmoid activation and softmax output
-        self.sigmoid = nn.Sigmoid()
-
-    def forward(self, x):
-        # Pass the input tensor through each of our operations
-        x = self.hidden(x)
-        x = self.sigmoid(x)
-        x = self.output(x)
-        return x
 
 
 class Model(nn.Module):
@@ -100,30 +75,22 @@ class CompressedModel:
 
 
 def crossover(model1, model2):
-    #Implementing Uniform Crossover
+    # Implementing Uniform Crossover
     model1 = uncompress_model(model1)
     model2 = uncompress_model(model2)
     model1_params = model1.state_dict()
     model2_params = model2.state_dict()
 
-    for param1,param2 in zip(model1_params.items(),model2_params.items()):
+    for param1, param2 in zip(model1_params.items(), model2_params.items()):
         name1, param1 = param1
         name2, param2 = param2
         shape = param1.shape
-        # param1 = torch.flatten(param1)
-        # param2 = torch.flatten(param2)
-        
-        if random.uniform(0,1) < 0.5 :
-            # temp = param1[i]
-            # param1[i] = param2[i]
-            # param2[i] = temp
+
+        if random.uniform(0, 1) < 0.5:
             param1, param2 = param2, param1
-                
-        # param1 = torch.reshape(param1,shape)
-        # param2 = torch.reshape(param2,shape)  
 
     model1_params[name1] = param1
-    model2_params[name2] = param2  
+    model2_params[name2] = param2
 
     model1.load_state_dict(model1_params)
     model2.load_state_dict(model2_params)
@@ -131,9 +98,9 @@ def crossover(model1, model2):
 
 
 class GA2:
-    def __init__(self, pop_mu = 5, population  = 25):
+    def __init__(self, pop_mu=5, population=25):
         self.pop_mu = pop_mu
-        self.population = population 
+        self.population = population
         self.models = [CompressedModel() for _ in range(self.population)]
 
     def get_best_models(self, cars):
@@ -154,7 +121,7 @@ class GA2:
         # choose top mu models
         self.models = [copy.deepcopy(x[0]) for x in scored_models[:self.pop_mu]]
 
-        #Save the best one
+        # Save the best one
         if best_model_path is not None:
             unc_model = uncompress_model(self.models[0])
             if os.path.isdir(best_model_path[0]) is False:
@@ -163,10 +130,8 @@ class GA2:
                 best_model_path[0],
                 'epoch_' + str(best_model_path[1]) + '.pt'))
 
-        
-
         for _ in range((self.population - self.pop_mu) // 2):
-            #choose parent for crossover
+            # choose parent for crossover
             model1 = random.choice(scored_models)[0]
             model2 = random.choice(scored_models)[0]
             c1, c2 = crossover(copy.deepcopy(model1), copy.deepcopy(model2))
@@ -178,8 +143,3 @@ class GA2:
             self.models.append(c2)
 
         return median_score, mean_score, max_score
-
-
-if __name__ == '__main__':
-    net = Network()
-    print(net)
