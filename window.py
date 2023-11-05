@@ -2,12 +2,10 @@ import pyglet
 import pymunk
 from pymunk.pyglet_util import DrawOptions
 
-
 from environment import create_level_1
 from utils import car_model_management, car_reset
 from car import Car
 import GA1
-
 
 ##################################################
 # Environment Variables
@@ -19,29 +17,23 @@ MOUSE_pressed = False
 BUTTON_pressed = []
 FPS = 50
 
-
 ##################################################
 # AI variables
 POPULATION = 25
-
 
 ##################################################
 # Pyglet
 window = pyglet.window.Window(WIDTH, HEIGHT, "EA Method 1", resizable=False)
 options = DrawOptions()
 
-
 ##################################################
 # Pymunk
 space = pymunk.Space()
 environment = create_level_1(space, HEIGHT, WIDTH, THICKNESS, STROKE)
 
-
 ##################################################
 # AI
 ai_handle = GA1.GA1()
-
-
 
 ##################################################
 # Cars
@@ -53,7 +45,7 @@ cars = [
         , i + 10
         , environment
     ) for i in range(POPULATION)
-    ]
+]
 car_model_management(cars, ai_handle)
 collided = []
 
@@ -90,10 +82,9 @@ def on_mouse_release(x, y, button, modifiers):
 
 ##################################################
 # GLOBAL PARAMETERS
-# V: 2021-05-23T1809 AU
 
 epoch = 1
-time_step = 20 # seconds; default: 5
+time_step = 20  # seconds; default: 5
 time_counter = 0
 collided = []
 
@@ -102,14 +93,15 @@ text_font_name = 'Times New Roman'
 text_font_size = 20
 text_x = WIDTH // 6
 text_y = HEIGHT - 20
-text_anchor='center'
+text_anchor = 'center'
 
 text_epoch = 'Epoch: {0}'.format(epoch)
 text_time_step = 'Time step: {0}'.format(time_step)
 text_time_counter = 'Time counter: {0}'.format(time_counter)
 
 
-def show_pyglet_text(my_text_epoch, my_text_font_name, my_text_font_size, my_text_x, my_text_y, my_text_anchor_x, my_text_anchor_y):
+def show_pyglet_text(my_text_epoch, my_text_font_name, my_text_font_size, my_text_x, my_text_y, my_text_anchor_x,
+                     my_text_anchor_y):
     return pyglet.text.Label(
         my_text_epoch,
         font_name=my_text_font_name,
@@ -120,13 +112,16 @@ def show_pyglet_text(my_text_epoch, my_text_font_name, my_text_font_size, my_tex
         anchor_y=my_text_anchor_y
     )
 
-epoch_to_show = show_pyglet_text(text_epoch, text_font_name, text_font_size,1 * text_x, text_y, text_anchor, text_anchor)
-timestep_to_show = show_pyglet_text(text_time_step, text_font_name, text_font_size, 3 * text_x, text_y, text_anchor, text_anchor)
-counter_to_show = show_pyglet_text(text_time_counter, text_font_name, text_font_size, 5 * text_x, text_y, text_anchor, text_anchor)
+
+epoch_to_show = show_pyglet_text(text_epoch, text_font_name, text_font_size, 1 * text_x, text_y, text_anchor,
+                                 text_anchor)
+timestep_to_show = show_pyglet_text(text_time_step, text_font_name, text_font_size, 3 * text_x, text_y, text_anchor,
+                                    text_anchor)
+counter_to_show = show_pyglet_text(text_time_counter, text_font_name, text_font_size, 5 * text_x, text_y, text_anchor,
+                                   text_anchor)
 
 
 # Update Function
-# v: 2021-05-23T1803 AU
 def update(dt):
     global time_counter, collided, time_step, epoch, epoch_to_show
     time_counter += 1
@@ -141,9 +136,9 @@ def update(dt):
 
     if time_counter >= FPS * time_step or len(collided) == POPULATION:
         # update: give less time for each tenth epoch
-        if epoch % 10 == 0: # every 10th epoch
-            time_step -= 1 # give less time
-            time_step = max(time_step, 5) # keep at least some time
+        if epoch % 10 == 0:  # every 10th epoch
+            time_step -= 1  # give less time
+            time_step = max(time_step, 5)  # keep at least some time
         print(
             "Epoch: ", epoch,
             " Reward stats: ",

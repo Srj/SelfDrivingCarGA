@@ -1,4 +1,12 @@
-from GA2 import *
+import copy
+import os
+import random
+
+import numpy as np
+import torch
+
+from Model import CompressedModel, uncompress_model
+
 
 class GA1:
     def __init__(self,
