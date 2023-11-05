@@ -84,7 +84,6 @@ def crossover(model1, model2):
     for param1, param2 in zip(model1_params.items(), model2_params.items()):
         name1, param1 = param1
         name2, param2 = param2
-        shape = param1.shape
 
         if random.uniform(0, 1) < 0.5:
             param1, param2 = param2, param1

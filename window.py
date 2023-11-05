@@ -17,8 +17,7 @@ THICKNESS = 100
 STROKE = 1
 MOUSE_pressed = False
 BUTTON_pressed = []
-# FPS = 60 # QC # 2021-05-23T1506 AU
-FPS = 50 # QC # 2021-05-23T1506 AU
+FPS = 50
 
 
 ##################################################
@@ -94,31 +93,31 @@ def on_mouse_release(x, y, button, modifiers):
 # V: 2021-05-23T1809 AU
 
 epoch = 1
-time_step = 20 # seconds; default: 5 # 2021-05-21T1810 AU
+time_step = 20 # seconds; default: 5
 time_counter = 0
 collided = []
 
 # Show pyglet Text
-text_font_name = 'Times New Roman' # QC # 2021-05-23T1511 AU
-text_font_size = 20 # QC # 2021-05-23T1511 AU
-text_x = WIDTH // 6 # QC # 2021-05-23T1511 AU
-text_y = HEIGHT - 20 # QC # 2021-05-23T1511 AU
-text_anchor='center' # QC # 2021-05-23T1511 AU
+text_font_name = 'Times New Roman'
+text_font_size = 20
+text_x = WIDTH // 6
+text_y = HEIGHT - 20
+text_anchor='center'
 
-text_epoch = 'Epoch: {0}'.format(epoch) # QC # 2021-05-23T1516 AU
-text_time_step = 'Time step: {0}'.format(time_step) # QC # 2021-05-23T1516 AU
-text_time_counter = 'Time counter: {0}'.format(time_counter) # QC # 2021-05-23T1516 AU
+text_epoch = 'Epoch: {0}'.format(epoch)
+text_time_step = 'Time step: {0}'.format(time_step)
+text_time_counter = 'Time counter: {0}'.format(time_counter)
 
 
 def show_pyglet_text(my_text_epoch, my_text_font_name, my_text_font_size, my_text_x, my_text_y, my_text_anchor_x, my_text_anchor_y):
     return pyglet.text.Label(
         my_text_epoch,
-        font_name=my_text_font_name, # QC # 2021-05-23T1511 AU
-        font_size=my_text_font_size, # QC # 2021-05-23T1511 AU
-        x=my_text_x, # QC # 2021-05-23T1511 AU
-        y=my_text_y, # QC # 2021-05-23T1511 AU
-        anchor_x=my_text_anchor_x, # QC # 2021-05-23T1511 AU
-        anchor_y=my_text_anchor_y # QC # 2021-05-23T1511 AU
+        font_name=my_text_font_name,
+        font_size=my_text_font_size,
+        x=my_text_x,
+        y=my_text_y,
+        anchor_x=my_text_anchor_x,
+        anchor_y=my_text_anchor_y
     )
 
 epoch_to_show = show_pyglet_text(text_epoch, text_font_name, text_font_size,1 * text_x, text_y, text_anchor, text_anchor)
@@ -142,9 +141,9 @@ def update(dt):
 
     if time_counter >= FPS * time_step or len(collided) == POPULATION:
         # update: give less time for each tenth epoch
-        if epoch % 10 == 0: # every 10th epoch # 2021-05-23T1500 AU
-            time_step -= 1 # give less time # QC # 2021-05-23T1500 AU
-            time_step = max(time_step, 5) # keep at least some time # QC # 2021-05-23T1800 AU
+        if epoch % 10 == 0: # every 10th epoch
+            time_step -= 1 # give less time
+            time_step = max(time_step, 5) # keep at least some time
         print(
             "Epoch: ", epoch,
             " Reward stats: ",
@@ -158,9 +157,9 @@ def update(dt):
         time_counter = 0
         collided = []
         epoch += 1
-        epoch_to_show.text = 'Epoch: {0}'.format(epoch) # QC # 2021-05-23T1756 AU
-        timestep_to_show.text = 'Time step: {0}'.format(time_step) # QC # 2021-05-23T1756 AU
-    counter_to_show.text = str(time_counter // FPS + 1) # QC # 2021-05-23T1758 AU
+        epoch_to_show.text = 'Epoch: {0}'.format(epoch)
+        timestep_to_show.text = 'Time step: {0}'.format(time_step)
+    counter_to_show.text = str(time_counter // FPS + 1)
 
 
 ##################################################
